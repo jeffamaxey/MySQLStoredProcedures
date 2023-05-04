@@ -49,16 +49,12 @@ def call_sp(mhost,musername,mpassword,mdatabase,mport):
 
 def html_table(col_desc,rows):
     # Create HTML table out of cursor.description and cursor.fetchall
-    html_out=[]
-    html_out.append('<table border=1><tr>')
-    for col in col_desc:
-        html_out.append('<td><b>%s</b></td>' % col[0])
+    html_out = ['<table border=1><tr>']
+    html_out.extend(f'<td><b>{col[0]}</b></td>' for col in col_desc)
     html_out.append('</tr>')
     for row in rows:
         html_out.append('<tr>')
-        for col in row:
-            html_out.append('<td>%s</td>' % col)
+        html_out.extend(f'<td>{col}</td>' for col in row)
         html_out.append('</tr>')
     html_out.append('</table>')
-    s='\n'.join(html_out)
-    return s
+    return '\n'.join(html_out)
